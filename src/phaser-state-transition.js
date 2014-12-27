@@ -87,7 +87,7 @@
 	/* Draw the world state */
 	function _draw(state) {
 		var args = [];
-		if(arguments > 1) {
+		if(arguments.length > 1) {
 			args = Array.prototype.slice.call(arguments, 1);
 		}
 
