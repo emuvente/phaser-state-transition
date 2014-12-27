@@ -44,8 +44,8 @@
 	/**
 	  * Calls the _draw method which handles the state changes and transitions
 	  */
-	Phaser.Plugin.StateTransition.prototype.to = function (state, callback) {
-		_draw.call(this, state);
+	Phaser.Plugin.StateTransition.prototype.to = function () {
+		_draw.apply(this, Array.prototype.slice.call(arguments));
 	};
 
 	/** 
@@ -86,6 +86,10 @@
 
 	/* Draw the world state */
 	function _draw(state) {
+		var args = [];
+		if(arguments > 1) {
+			args = Array.prototype.slice.call(arguments, 1);
+		}
 
 		/* Pause the game at first */
 		this.game.paused = true;
@@ -123,7 +127,7 @@
 				_animateCover.call(_this);
 			}
 
-			this.game.state.start(state);
+			this.game.state.start.apply(this.game.state, [state].concat(args));
 		}
 
 		/* Resume the game */
